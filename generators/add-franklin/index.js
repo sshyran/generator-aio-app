@@ -8,6 +8,21 @@ class FranklinGenerator extends Generator {
     this.props = {}
   }
 
+  async prompting () {
+    // Default tenant if we skip all prompts
+    this.tenant = 'demo-site'
+    if (!this.options['skip-prompt']) {
+      const res = await this.prompt([
+        {
+          type: 'input',
+          name: 'tenant',
+          message: 'What is the name of the AEM tennant you would like to use?'
+        }
+      ])
+      this.tenant = res.tenant
+    }
+  }
+
   writing () {
     this.sourceRoot(path.join(__dirname, 'templates'))
 
@@ -19,7 +34,7 @@ class FranklinGenerator extends Generator {
     addDependencies(this, { 'franklin-esr': 'adobe-rnd/franklin-esr' })
     addDependencies(this, { 'patch-package': '^6.4.7' }, true)
     addPkgScript(this, { build: 'franklin build', dev: 'franklin dev', postinstall: 'patch-package' })
-    writeKeyAppConfig(this, 'franklin.vars.tenant', 'demo-site')
+    writeKeyAppConfig(this, 'franklin.vars.tenant', this.tenant)
   }
 }
 
