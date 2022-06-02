@@ -1,0 +1,13 @@
+diff --git a/node_modules/vite-plugin-ssr/dist/cjs/node/plugin/build.js b/node_modules/vite-plugin-ssr/dist/cjs/node/plugin/build.js
+index 8014cf9..be4c99e 100644
+--- a/node_modules/vite-plugin-ssr/dist/cjs/node/plugin/build.js
++++ b/node_modules/vite-plugin-ssr/dist/cjs/node/plugin/build.js
+@@ -69,7 +69,7 @@ function browserEntryPoints(config) {
+     const root = getRoot(config);
+     (0, utils_1.assert)((0, path_1.isAbsolute)(root));
+     const browserEntries = glob.sync(`${root}/**/*.page.client.*([a-zA-Z0-9])`, {
+-        ignore: ['**/node_modules/**'],
++        ignore: ['(!franklin-esr)/node_modules/**'],
+     });
+     const entryPoints = {};
+     for (const filePath of browserEntries) {
