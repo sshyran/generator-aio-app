@@ -34,7 +34,7 @@ class FranklinGenerator extends Generator {
     addDependencies(this, { 'franklin-esr': 'adobe-rnd/franklin-esr' })
     addDependencies(this, { 'patch-package': '^6.4.7' }, true)
     addPkgScript(this, { build: 'franklin build', dev: 'franklin dev', postinstall: 'patch-package' })
-    writeKeyAppConfig(this, 'franklin.vars.tenant', this.tenant)
+    writeKeyAppConfig(this, 'franklin.tenant', this.tenant)
   }
 }
 
