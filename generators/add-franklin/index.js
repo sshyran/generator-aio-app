@@ -21,12 +21,19 @@ class FranklinGenerator extends Generator {
           type: 'input',
           name: 'tenant',
           message: 'What is the name of the AEM tenant you would like to use?',
-          loop: isLoopingPrompts
+          loop: isLoopingPrompts,
+          validate (input) {
+            const valid = /^[a-zA-Z0-9][a-zA-Z0-9-]+$/
+            if (valid.test(input)) {
+              return true
+            }
+            return `${input} is not a valid tenant name. May only contain letters, numbers and "-".`
+          }
         },
         {
           type: 'checkbox',
           name: 'coreComponents',
-          message: 'Which AEM Core Components should we generate stubs to customise for?',
+          message: 'Which AEM Core Components are you planning to customize? We\'ll generate stubs for those',
           loop: isLoopingPrompts,
           choices: [
             {
