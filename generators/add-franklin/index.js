@@ -7,6 +7,8 @@ class FranklinGenerator extends Generator {
   constructor (args, opts) {
     super(args, opts, undefined)
     this.props = {}
+
+    this.option('add-actions', { type: Boolean, default: false })
   }
 
   async prompting () {
@@ -67,7 +69,12 @@ class FranklinGenerator extends Generator {
       `${this.templatePath()}/**`,
       this.destinationPath(),
       this.props,
-      undefined, { globOptions: { ignore: ['**/template-core-component/**'] } })
+      undefined, { globOptions: { ignore: ['**/template-core-component/**', '**/actions/**'] } })
+
+    // If actions folder is being generated, add package.json to make type commonjs
+    if (this.options['add-actions']) {
+      this.fs.copy(this.templatePath('actions/package.json'), this.destinationPath('actions/package.json'))
+    }
 
     addDependencies(this, { 'franklin-esr': 'adobe-rnd/franklin-esr' })
     addDependencies(this, { 'patch-package': '^6.4.7' }, true)

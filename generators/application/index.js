@@ -126,7 +126,7 @@ class Application extends Generator {
     if (addFranklin) {
       this.composeWith(path.join(__dirname, '../add-franklin/index.js'), {
         'skip-prompt': this.options['skip-prompt'],
-        'adobe-services': this.options['adobe-services']
+        'add-actions': addActions
       })
     }
   }
