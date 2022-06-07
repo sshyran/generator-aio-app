@@ -96,6 +96,16 @@ class FranklinGenerator extends Generator {
       )
     })
   }
+
+  async install () {
+    // Ensure the franklin plugin is installed
+    const { stdout } = this.spawnCommandSync('aio', ['plugins'], { encoding: 'utf-8', stdio: [process.stderr] })
+
+    if (!stdout.includes('@adobe/aio-cli-plugin-franklin')) {
+      this.log('Install Adobe I/O CLI AEM Plugin')
+      this.spawnCommandSync('aio', ['plugins:install', 'git+ssh://git@github.com/adobe-rnd/aio-cli-plugin-franklin.git'])
+    }
+  }
 }
 
 module.exports = FranklinGenerator
