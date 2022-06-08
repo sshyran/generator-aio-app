@@ -11,6 +11,7 @@ governing permissions and limitations under the License.
 
 const path = require('path')
 const Generator = require('yeoman-generator')
+const GeneratorAioFranklin = require('generator-aio-franklin')
 
 const { isLoopingPrompts, runtimeManifestKey } = require('../../lib/constants')
 const utils = require('../../lib/utils')
@@ -124,7 +125,10 @@ class Application extends Generator {
       })
     }
     if (addFranklin) {
-      this.composeWith(path.join(__dirname, '../add-franklin/index.js'), {
+      this.composeWith({
+        Generator: GeneratorAioFranklin,
+        path: 'generator-aio-franklin'
+      }, {
         'skip-prompt': this.options['skip-prompt'],
         'add-actions': addActions
       })
